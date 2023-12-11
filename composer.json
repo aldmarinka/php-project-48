@@ -1,0 +1,23 @@
+{
+    "name": "hexlet/code",
+    "description": "Second project with Hexlet",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marina Aldoshina",
+            "email": "aldmarinka@yandex.ru"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    },
+    "bin": [
+        "bin/gendiff"
+    ]
+}
