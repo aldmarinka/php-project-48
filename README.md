@@ -14,4 +14,6 @@ PHP версии 7 и выше
 
 ```./bin/gendiff tests/file1.json tests/file2.json```
 
-[![asciicast](https://asciinema.org/a/0q33sYtdFY8AqpUrC1epamLK6.svg)](https://asciinema.org/a/0q33sYtdFY8AqpUrC1epamLK6)
+[![asciicast](https://asciinema.org/a/mPId1qB4XO03S6lZF5z9vYOri.svg)](https://asciinema.org/a/mPId1qB4XO03S6lZF5z9vYOri)
+
+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
