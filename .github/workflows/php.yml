@@ -28,12 +28,15 @@ jobs:
     - name: run linter
       run: make lint
 
+    - name: run tests
+      run: make tests
+
     - name: Upload Coverage to Code Climate
       uses: paambaati/codeclimate-action@v5
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
         coverageCommand: make test-coverage
-        coverageLocations: ${{ github.workplace }}/build/logs/clover.xml:clover
+        coverageLocations: ${{ github.workspace }}/build/logs/clover.xml:clover
         debug: true
           
