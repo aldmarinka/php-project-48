@@ -66,7 +66,6 @@ function beautifyAnswer(array $records): string
     $answer = "{";
     $tab    = PHP_EOL . "    ";
     foreach ($records as $record) {
-
         switch ($record['operation']) {
             case 'unchanged':
                 $answer .= "{$tab}  {$record['key']}: {$record['value1']}";
