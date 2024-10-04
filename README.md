@@ -1,6 +1,7 @@
 ### Hexlet tests and linter status:
 
-[![Actions Status](https://github.com/aldmarinka/php-project-48/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/aldmarinka/php-project-48/actions)
+[![Hexlet Status](https://github.com/aldmarinka/php-project-48/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/aldmarinka/php-project-48/actions)
+[![PHP Status](https://github.com/aldmarinka/php-project-48/actions/workflows/php.yml/badge.svg)](https://github.com/aldmarinka/php-project-48/actions)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8b8c6dcfbf700b04b916/test_coverage)](https://codeclimate.com/github/aldmarinka/php-project-48/test_coverage)
 
 ### Требования:
