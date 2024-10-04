@@ -7,8 +7,8 @@ install:
 lint:
 	composer exec --verbose phpcs -- --standard=PSR12 src bin
 
-tests:
-	composer ./vendor/bin/phpunit
+test:
+	composer exec --verbose phpunit tests
 
 test-coverage:
-	./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+	XDEBUG_MODE=coverage composer exec --verbose phpunit tests -- --coverage-clover logs/clover.xml
