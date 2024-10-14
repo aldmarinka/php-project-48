@@ -13,6 +13,7 @@ class GenDiffTest extends TestCase
     {
         return [
             ['file1.json', 'file2.json', 'expectedJson.txt'],
+            ['file1.yaml', 'file2.yaml', 'expectedYaml.txt'],
         ];
     }
 

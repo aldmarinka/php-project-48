@@ -14,8 +14,12 @@ PHP версии 7 и выше
 
 ### Запуск:
 
-```./bin/gendiff tests/file1.json tests/file2.json```
+```./bin/gendiff tests/fixtures/file1.json tests/fixtures/file2.json```
 
-[![asciicast](https://asciinema.org/a/mPId1qB4XO03S6lZF5z9vYOri.svg)](https://asciinema.org/a/mPId1qB4XO03S6lZF5z9vYOri)
+[![asciicast](https://asciinema.org/a/DTd83wdJ459G9p1NpqhPmvpJw.svg)](https://asciinema.org/a/DTd83wdJ459G9p1NpqhPmvpJw)
+
+```./bin/gendiff tests/fixtures/file1.yaml tests/fixtures/file2.yaml```
+
+[![asciicast](https://asciinema.org/a/X9MiakHJBioDnv1xPi9GuhYPQ.svg)](https://asciinema.org/a/X9MiakHJBioDnv1xPi9GuhYPQ)
 
 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

@@ -2,27 +2,27 @@
 
 namespace Differ\Differ;
 
+use Exception;
+use function Differ\Parser\parseFile;
+
+/**
+ * @throws Exception
+ */
 function genDiff(string $pathToFile1, string $pathToFile2)
 {
-    $text1 = getText($pathToFile1);
-    $text2 = getText($pathToFile2);
+    $text1 = parseFile($pathToFile1);
+    $text2 = parseFile($pathToFile2);
 
     $result = compareTexts($text1, $text2);
 
     return beautifyAnswer($result);
 }
 
-function getText(string $path): array
+function compareTexts(object $object1, object $object2): array
 {
-    if (!file_exists($path)) {
-        throw new \Exception("File {$path} not found");
-    }
+    $text1 = get_object_vars($object1);
+    $text2 = get_object_vars($object2);
 
-    return json_decode(file_get_contents($path), 1);
-}
-
-function compareTexts(array $text1, array $text2): array
-{
     $commonArray = array_merge($text1, $text2);
     ksort($commonArray);
 
