@@ -12,11 +12,12 @@ class GenDiffTest extends TestCase
     public static function provideTestFileNames(): array
     {
         return [
-            ['file1.json', 'file2.json', 'expectedJson.txt', 'stylish'],
-            ['file1.yaml', 'file2.yaml', 'expectedYaml.txt', 'stylish'],
             ['nested1.json', 'nested2.json', 'expectedNestedStylish.txt', 'stylish'],
             ['nested1.yaml', 'nested2.yaml', 'expectedNestedStylish.txt', 'stylish'],
             ['nested1.json', 'nested2.json', 'expectedNestedPlain.txt', 'plain'],
+            ['nested1.yaml', 'nested2.yaml', 'expectedNestedPlain.txt', 'plain'],
+            ['nested1.json', 'nested2.json', 'expectedNestedJson.txt', 'json'],
+            ['nested1.yaml', 'nested2.yaml', 'expectedNestedJson.txt', 'json'],
         ];
     }
 

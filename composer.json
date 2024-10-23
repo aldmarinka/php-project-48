@@ -12,7 +12,8 @@
             "src/Differ/Parser.php",
             "src/Differ/Formatters.php",
             "src/Differ/Formatters/Stylish.php",
-            "src/Differ/Formatters/Plain.php"
+            "src/Differ/Formatters/Plain.php",
+            "src/Differ/Formatters/Json.php"
         ]
     },
     "authors": [
