@@ -5,86 +5,42 @@ namespace Differ\Differ;
 use Exception;
 
 use function Differ\Parser\parseFile;
+use function Differ\Format\format;
 
 /**
  * @throws Exception
  */
-function genDiff(string $pathToFile1, string $pathToFile2)
+function genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish')
 {
     $text1 = parseFile($pathToFile1);
     $text2 = parseFile($pathToFile2);
 
     $result = compareTexts($text1, $text2);
 
-    return beautifyAnswer($result);
+    return format($result, $format);
 }
 
-function compareTexts(object $object1, object $object2): array
+function compareTexts(object $data1, object $data2): array
 {
-    $text1 = get_object_vars($object1);
-    $text2 = get_object_vars($object2);
+    $text1 = get_object_vars($data1);
+    $text2 = get_object_vars($data2);
+    $uniqueKeys = array_unique(array_merge(array_keys($text1), array_keys($text2)));
+    sort($uniqueKeys);
 
-    $commonArray = array_merge($text1, $text2);
-    ksort($commonArray);
-
-    $result = [];
-    foreach ($commonArray as $key => $value) {
-        if (!isset($text1[$key])) {
-            $result[] = makeRecord('added', $key, $text2[$key]);
-            continue;
+    return array_map(function ($key) use ($text1, $text2) {
+        if (!array_key_exists($key, $text1)) {
+            return ['operation' => 'added', 'key' => $key, 'value2' => $text2[$key]];
         }
-
-        if (!isset($text2[$key])) {
-            $result[] = makeRecord('deleted', $key, $text1[$key]);
-
-            continue;
+        if (!array_key_exists($key, $text2)) {
+            return ['operation' => 'deleted', 'key' => $key, 'value1' => $text1[$key]];
         }
-
-        if ($text1[$key] != $text2[$key]) {
-            $result[] = makeRecord('changed', $key, $text1[$key], $text2[$key]);
-
-            continue;
+        if (is_object($text1[$key]) && is_object($text2[$key])) {
+            $child = compareTexts($text1[$key], $text2[$key]);
+            return ['operation' => 'parent', 'key' => $key, 'child' => $child];
         }
-
-        $result[] = makeRecord('unchanged', $key, $value);
-    }
-
-    return $result;
-}
-
-function makeRecord(string $operation, string $key, $value1, $value2 = null): array
-{
-    return [
-        'operation' => $operation,
-        'key'       => $key,
-        'value1'    => is_bool($value1) ? ($value1 ? 'true' : 'false') : $value1,
-        'value2'    => is_bool($value2) ? ($value1 ? 'true' : 'false') : $value2,
-    ];
-}
-
-function beautifyAnswer(array $records): string
-{
-    $answer = "{";
-    $tab    = PHP_EOL . "    ";
-    foreach ($records as $record) {
-        switch ($record['operation']) {
-            case 'unchanged':
-                $answer .= "{$tab}  {$record['key']}: {$record['value1']}";
-                break;
-            case 'added':
-                $answer .= "{$tab}+ {$record['key']}: {$record['value1']}";
-                break;
-            case 'deleted':
-                $answer .= "{$tab}- {$record['key']}: {$record['value1']}";
-                break;
-            case 'changed':
-                $answer .= "{$tab}- {$record['key']}: {$record['value1']}{$tab}+ {$record['key']}: {$record['value2']}";
-                break;
-            default:
-                throw new \Exception("Unknown operation: {$record['operation']}");
+        if ($text1[$key] === $text2[$key]) {
+            return ['operation' => 'unchanged', 'key' => $key, 'value1' => $text1[$key]];
         }
-    }
-    $answer .= PHP_EOL . "}";
-
-    return $answer;
+        return ['operation' => 'changed', 'key' => $key, 'value1' => $text1[$key], 'value2' => $text2[$key]];
+    }, $uniqueKeys);
 }

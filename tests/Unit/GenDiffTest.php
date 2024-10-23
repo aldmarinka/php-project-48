@@ -12,8 +12,10 @@ class GenDiffTest extends TestCase
     public static function provideTestFileNames(): array
     {
         return [
-            ['file1.json', 'file2.json', 'expectedJson.txt'],
-            ['file1.yaml', 'file2.yaml', 'expectedYaml.txt'],
+            ['file1.json', 'file2.json', 'expectedJson.txt', 'stylish'],
+            ['file1.yaml', 'file2.yaml', 'expectedYaml.txt', 'stylish'],
+            ['nested1.json', 'nested2.json', 'expectedNested.txt', 'stylish'],
+            ['nested1.yaml', 'nested2.yaml', 'expectedNested.txt', 'stylish'],
         ];
     }
 
@@ -23,12 +25,12 @@ class GenDiffTest extends TestCase
     }
 
     #[DataProvider('provideTestFileNames')]
-    public function testGenDiff(string $fileName1, string $fileName2, string $expected): void
+    public function testGenDiff(string $fileName1, string $fileName2, string $expected, string $format): void
     {
         $file1 = $this->makeFilePath($fileName1);
         $file2 = $this->makeFilePath($fileName2);
         $expected = $this->makeFilePath($expected);
 
-        $this->assertStringEqualsFile($expected, genDiff($file1, $file2));
+        $this->assertStringEqualsFile($expected, genDiff($file1, $file2, $format));
     }
 }
