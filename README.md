@@ -30,4 +30,8 @@ PHP версии 7 и выше
 
 [![asciicast](https://asciinema.org/a/nu8jX7PfuYTxGtATk3dU26WC2.svg)](https://asciinema.org/a/nu8jX7PfuYTxGtATk3dU26WC2)
 
+```./bin/gendiff  --format plain tests/fixtures/nested1.json tests/fixtures/nested2.json```
+
+[![asciicast](https://asciinema.org/a/uL5pQbYztFmxFDbdzwFqpIlkZ.svg)](https://asciinema.org/a/uL5pQbYztFmxFDbdzwFqpIlkZ)
+
 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

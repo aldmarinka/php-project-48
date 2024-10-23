@@ -11,7 +11,8 @@
             "src/Differ/genDiff.php",
             "src/Differ/Parser.php",
             "src/Differ/Formatters.php",
-            "src/Differ/Formatter/Stylish.php"
+            "src/Differ/Formatters/Stylish.php",
+            "src/Differ/Formatters/Plain.php"
         ]
     },
     "authors": [

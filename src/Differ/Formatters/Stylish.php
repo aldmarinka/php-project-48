@@ -1,15 +1,15 @@
 <?php
 
-namespace Differ\Formatter\Stylish;
+namespace Differ\Formatters\Stylish;
 
-function renderStylish(array $records, int $level = 0): string
+function render(array $records, int $level = 0): string
 {
     $indent = spacesAmount($level);
     $resultArray = array_map(function ($record) use ($level, $indent) {
         $currentLevel = $level + 1;
         switch ($record['operation']) {
             case 'parent':
-                return "{$indent}    {$record['key']}: " . renderStylish($record['child'], $currentLevel) . "\n";
+                return "{$indent}    {$record['key']}: " . render($record['child'], $currentLevel) . "\n";
             case 'unchanged':
                 $value1 = toString($record['value1'], $currentLevel);
                 return "{$indent}    {$record['key']}:{$value1}\n";
