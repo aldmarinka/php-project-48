@@ -10,7 +10,7 @@ use function Differ\Format\format;
 /**
  * @throws Exception
  */
-function genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish')
+function genDiff(string $pathToFile1, string $pathToFile2, string $format = 'stylish'): string
 {
     $text1 = parseFile($pathToFile1);
     $text2 = parseFile($pathToFile2);
@@ -25,7 +25,6 @@ function compareTexts(object $data1, object $data2): array
     $text1 = get_object_vars($data1);
     $text2 = get_object_vars($data2);
     $uniqueKeys = array_unique(array_merge(array_keys($text1), array_keys($text2)));
-    sort($uniqueKeys);
 
     return array_map(function ($key) use ($text1, $text2) {
         if (!array_key_exists($key, $text1)) {
