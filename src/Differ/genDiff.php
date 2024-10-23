@@ -6,6 +6,8 @@ use Exception;
 
 use function Differ\Parser\parseFile;
 use function Differ\Format\format;
+use function Functional\sort;
+
 
 /**
  * @throws Exception
@@ -25,6 +27,7 @@ function compareTexts(object $data1, object $data2): array
     $text1 = get_object_vars($data1);
     $text2 = get_object_vars($data2);
     $uniqueKeys = array_unique(array_merge(array_keys($text1), array_keys($text2)));
+    $sortedKeys = sort($uniqueKeys, fn($a, $b) => $a <=> $b);
 
     return array_map(function ($key) use ($text1, $text2) {
         if (!array_key_exists($key, $text1)) {
@@ -41,5 +44,5 @@ function compareTexts(object $data1, object $data2): array
             return ['operation' => 'unchanged', 'key' => $key, 'value1' => $text1[$key]];
         }
         return ['operation' => 'changed', 'key' => $key, 'value1' => $text1[$key], 'value2' => $text2[$key]];
-    }, $uniqueKeys);
+    }, $sortedKeys);
 }
