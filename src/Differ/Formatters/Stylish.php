@@ -12,17 +12,17 @@ function render(array $records, int $level = 0): string
                 return "{$indent}    {$record['key']}: " . render($record['child'], $currentLevel) . "\n";
             case 'unchanged':
                 $value1 = toString($record['value1'], $currentLevel);
-                return "{$indent}    {$record['key']}:{$value1}\n";
+                return "{$indent}    {$record['key']}: {$value1}\n";
             case 'added':
                 $value2 = toString($record['value2'], $currentLevel);
-                return "{$indent}  + {$record['key']}:{$value2}\n";
+                return "{$indent}  + {$record['key']}: {$value2}\n";
             case 'deleted':
                 $value1 = toString($record['value1'], $currentLevel);
-                return "{$indent}  - {$record['key']}:{$value1}\n";
+                return "{$indent}  - {$record['key']}: {$value1}\n";
             case 'changed':
                 $value1 = toString($record['value1'], $currentLevel);
                 $value2 = toString($record['value2'], $currentLevel);
-                return "{$indent}  - {$record['key']}:{$value1}\n{$indent}  + {$record['key']}:{$value2}\n";
+                return "{$indent}  - {$record['key']}: {$value1}\n{$indent}  + {$record['key']}: {$value2}\n";
             default:
                 throw new \Exception("Unknown operation: {$record['operation']}");
         }
@@ -34,22 +34,22 @@ function render(array $records, int $level = 0): string
 function toString(mixed $value, int $level): string
 {
     if (is_bool($value)) {
-        return $value === true ? ' true' : ' false';
+        return $value === true ? 'true' : 'false';
     }
     if (is_null($value)) {
-        return ' null';
+        return 'null';
     }
     if (!is_object($value)) {
-        return (string)$value === '' ? '' : ' ' . $value;
+        return (string)$value;
     }
 
     $indent = spacesAmount($level);
     $formattedArray = array_map(function ($key, $item) use ($level, $indent) {
-        $dataType = (is_object($item)) ? toString($item, $level + 1) : ' ' . $item;
-        return $indent . spacesAmount(1) . "{$key}:" . $dataType . "\n";
+        $dataType = (is_object($item)) ? toString($item, $level + 1) : $item;
+        return $indent . spacesAmount(1) . "{$key}: " . $dataType . "\n";
     }, array_keys(get_object_vars($value)), get_object_vars($value));
 
-    return " {" . "\n" . implode("", $formattedArray) . $indent . "}";
+    return "{" . "\n" . implode("", $formattedArray) . $indent . "}";
 }
 
 function spacesAmount(int $level, int $spaces = 4): string
