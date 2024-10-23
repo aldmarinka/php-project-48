@@ -8,7 +8,6 @@ use function Differ\Parser\parseFile;
 use function Differ\Format\format;
 use function Functional\sort;
 
-
 /**
  * @throws Exception
  */
